@@ -1,6 +1,9 @@
 <?php
 
-class CommentWidgetFront extends WP_Widget {
+// PHP 5.3 and later:
+namespace Delibera\Includes\SideComments;
+
+class CommentWidgetFront extends \WP_Widget {
 
 	function __construct() {
 		parent::__construct(
@@ -102,7 +105,7 @@ class CommentWidgetFront extends WP_Widget {
 	public function form( $instance ) {
 
 		$args   = array(
-			'post_type' => array( 'texto-em-debate' ),
+			'post_type' => array( 'pauta' ),
 		);
 		$result = new WP_Query( $args );
 

@@ -1,5 +1,8 @@
 <?php
 
+// PHP 5.3 and later:
+namespace Delibera\Includes\SideComments;
+
 /**
  * Created by PhpStorm.
  * User: josafa filho <josafafilho15@gmail.com>
@@ -508,7 +511,7 @@ class CTLT_WP_Side_Comments {
 	 */
 	public function addSideCommentsClassesToContent( $content ) {
 
-		if ( $this->get_current_post_type() == "texto-em-debate" && $content ) {
+		if ( $this->get_current_post_type() == "pauta" && $content ) {
 			$content = str_replace( "\\\"", '"', $content );
 
 			$dom = new simple_html_dom( $content );
@@ -592,7 +595,7 @@ class CTLT_WP_Side_Comments {
 
 	public function addSearchableClassesToContent( $content ) {
 
-		if ( $this->get_current_post_type() == "texto-em-debate" && $content ) {
+		if ( $this->get_current_post_type() == "pauta" && $content ) {
 			$dom = new simple_html_dom( $content );
 
 			foreach ( $dom->childNodes() as $node ) {
@@ -1022,7 +1025,7 @@ class CTLT_WP_Side_Comments {
 
 	public function get_texto_em_debate_template( $single_template ) {
 		global $post;
-		if ( $post->post_type == 'texto-em-debate' ) {
+		if ( $post->post_type == 'pauta' ) {
 			$single_template = CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'templates/single-texto-em-debate-template.php';
 		}
 

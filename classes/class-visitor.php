@@ -5,6 +5,9 @@
  * @link https://github.com/humanmade/comment-popularity/
  */
 
+// PHP 5.3 and later:
+namespace Delibera\Includes\SideComments;
+
 /**
  * Class WP_Side_Comments_Visitor
  */

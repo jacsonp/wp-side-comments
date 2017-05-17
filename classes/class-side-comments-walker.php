@@ -9,7 +9,11 @@
  *
  * @since 0.1
  */
-class SideCommentsWalker extends Walker_Comment {
+
+// PHP 5.3 and later:
+namespace Delibera\Includes\SideComments;
+
+class SideCommentsWalker extends \Walker_Comment {
 
 	// init classwide variables
 	var $tree_type = 'comment';

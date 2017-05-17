@@ -9,6 +9,9 @@ Author URI: http://ctlt.ubc.ca
 Version: 0.1.3
 */
 
+// PHP 5.3 and later:
+namespace Delibera\Includes;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -27,7 +30,7 @@ require_once CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/class-wp-side-comments
 require_once CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/class-wp-side-comments-admin.php';
 
 //includes the Custom Post Type "Texto em Debate"
-require_once CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/class-texto-em-debate-post-type.php';
+//require_once CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/class-texto-em-debate-post-type.php';
 
 // Widget para exibição na capa
 include( CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/comment-front-widget.php' );

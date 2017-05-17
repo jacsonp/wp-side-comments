@@ -7,6 +7,9 @@
  * Time: 17:24
  */
 
+// PHP 5.3 and later:
+namespace Delibera\Includes\SideComments;
+
 /**
  * Class Texto_Em_Debate_Post_Type
  * Custom Post Type
@@ -284,4 +287,4 @@ function wpsc_init_texto_em_debate() {
 }
 
 //Register initializer hook
-add_action( 'init', 'wpsc_init_texto_em_debate' );
+//add_action( 'init', 'wpsc_init_texto_em_debate' );

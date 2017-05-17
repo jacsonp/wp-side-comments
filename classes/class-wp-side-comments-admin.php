@@ -1,5 +1,8 @@
 <?php
 
+// PHP 5.3 and later:
+namespace Delibera\Includes\SideComments;
+
 /**
  * Created by PhpStorm.
  * User: josafa filho <josafafilho15@gmail.com>
