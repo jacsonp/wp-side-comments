@@ -182,7 +182,7 @@ class CTLT_WP_Side_Comments {
 		$nonHTTPS        = preg_replace( '/^https(?=:\/\/)/i', 'http', $adminAjaxURL );
 		$data['ajaxURL'] = $nonHTTPS;
 
-		$data['containerSelector'] = apply_filters( 'wp_side_comments_container_css_selector', '.commentable-container .entry-content' );
+		$data['containerSelector'] = apply_filters( 'wp_side_comments_container_css_selector', '.commentable-container' );
 
 		$data['allowUserInteraction'] = comments_open();
 
