@@ -21,7 +21,7 @@ class Texto_Em_Debate_Post_Type {
 
 	public function __construct() {
 		//register the custom post type
-		$this->wp_side_comments_post_types();
+		//$this->wp_side_comments_post_types();
 
 		//register post type actions and filters
 		add_action( 'the_content', array( $this, 'wp_side_comments_parse_headers' ) );
@@ -181,7 +181,7 @@ class Texto_Em_Debate_Post_Type {
 	 */
 	public function editor_visual_novas_cores( $init ) {
 
-		if ( get_post_type() == "texto-em-debate" ) {
+		if ( get_post_type() == "pauta" ) {
 
 			$init['textcolor_map']  = '[' . self::$cores_texto_debate_editor . ']'; // build colour grid default+custom colors
 			$init['textcolor_rows'] = 3; // enable 6th row for custom colours in grid
@@ -199,7 +199,7 @@ class Texto_Em_Debate_Post_Type {
 	 */
 	public function editor_visual_custom_styles_buttons( $buttons ) {
 
-		if ( get_post_type() == "texto-em-debate" ) {
+		if ( get_post_type() == "pauta" ) {
 			array_unshift( $buttons, 'styleselect' );
 		}
 
@@ -215,7 +215,7 @@ class Texto_Em_Debate_Post_Type {
 	 */
 	public function editor_visual_custom_styles( $init ) {
 
-		if ( get_post_type() == "texto-em-debate" ) {
+		if ( get_post_type() == "pauta" ) {
 			$formats = array(
 				array(
 					'title'      => 'Parágrafo Comentável',
@@ -239,7 +239,7 @@ class Texto_Em_Debate_Post_Type {
 	 * @return string
 	 */
 	function editor_visual_css( $css ) {
-		if ( get_post_type() == "texto-em-debate" ) {
+		if ( get_post_type() == "pauta" ) {
 			if ( ! empty( $css ) ) {
 				$css .= ',';
 			}
@@ -258,7 +258,7 @@ class Texto_Em_Debate_Post_Type {
 	 * @return mixed Conteúdo HTML do texto em debate, após filtro
 	 */
 	public function wp_side_comments_parse_headers( $content ) {
-		if ( get_post_type() == "texto-em-debate" ) {
+		if ( get_post_type() == "pauta" ) {
 			return preg_replace_callback( '/(<h([1-6]{1})([^>]*)>)(.*)<\/h\2>/msuU', array(
 				$this,
 				'wp_side_comments_parse_head'
@@ -287,4 +287,4 @@ function wpsc_init_texto_em_debate() {
 }
 
 //Register initializer hook
-//add_action( 'init', 'wpsc_init_texto_em_debate' );
+add_action( 'init', '\Delibera\Includes\SideComments\wpsc_init_texto_em_debate' );

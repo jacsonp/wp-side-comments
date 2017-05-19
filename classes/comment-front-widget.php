@@ -184,7 +184,7 @@ class CommentWidgetFront extends \WP_Widget {
 
 // Register and load the widget
 function CommentWidgetFront_load_widget() {
-	register_widget( 'CommentWidgetFront' );
+	register_widget( '\Delibera\Includes\SideComments\CommentWidgetFront' );
 }
 
-add_action( 'widgets_init', 'CommentWidgetFront_load_widget' );
+add_action( 'widgets_init', '\Delibera\Includes\SideComments\CommentWidgetFront_load_widget' );

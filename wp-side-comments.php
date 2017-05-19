@@ -30,7 +30,7 @@ require_once CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/class-wp-side-comments
 require_once CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/class-wp-side-comments-admin.php';
 
 //includes the Custom Post Type "Texto em Debate"
-//require_once CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/class-texto-em-debate-post-type.php';
+require_once CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/class-texto-em-debate-post-type.php';
 
 // Widget para exibição na capa
 include( CTLT_WP_SIDE_COMMENTS_PLUGIN_PATH . 'classes/comment-front-widget.php' );

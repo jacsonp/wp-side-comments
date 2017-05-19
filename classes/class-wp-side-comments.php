@@ -89,7 +89,7 @@ class CTLT_WP_Side_Comments {
 		add_action( 'wp_ajax_nopriv_last_comments_callback', array( $this, 'last_comments_callback' ) );
 
 		// Get the proper template for post type texto-em-debate
-		add_filter( 'single_template', array( $this, 'get_texto_em_debate_template' ) );
+		//add_filter( 'single_template', array( $this, 'get_texto_em_debate_template' ) );
 
 		//Set up searchable area
 		add_filter( 'the_content', array( $this, 'addSearchableClassesToContent' ), 51 );
@@ -149,21 +149,21 @@ class CTLT_WP_Side_Comments {
 	}
 
 	private function enqueueScripts() {
-		wp_register_script( 'side-comments-script', CTLT_WP_SIDE_COMMENTS_PLUGIN_URL . 'includes/js/side-comments.js', array( 'jquery' ) );
-		wp_register_script( 'wp-side-comments-script', CTLT_WP_SIDE_COMMENTS_PLUGIN_URL . 'includes/js/wp-side-comments.js', array(
+		wp_register_script( 'delibera-side-comments-script', CTLT_WP_SIDE_COMMENTS_PLUGIN_URL . 'includes/js/side-comments.js', array( 'jquery' ) );
+		wp_register_script( 'delibera-wp-side-comments-script', CTLT_WP_SIDE_COMMENTS_PLUGIN_URL . 'includes/js/wp-side-comments.js', array(
 			'jquery',
-			'side-comments-script'
-		), null, true );
-		wp_register_script( 'highlight-script', CTLT_WP_SIDE_COMMENTS_PLUGIN_URL . 'includes/js/jquery.highlight-5.js', array( 'jquery' ) );
-		wp_register_script( 'texto-em-debate-script', CTLT_WP_SIDE_COMMENTS_PLUGIN_URL . 'includes/js/texto-em-debate.js', array(
+			'delibera-side-comments-script'
+		));
+		wp_register_script( 'delibera-highlight-script', CTLT_WP_SIDE_COMMENTS_PLUGIN_URL . 'includes/js/jquery.highlight-5.js', array( 'jquery' ) );
+		wp_register_script( 'delibera-texto-em-debate-script', CTLT_WP_SIDE_COMMENTS_PLUGIN_URL . 'includes/js/texto-em-debate.js', array(
 			'jquery',
-			'highlight-script'
-		), null, true );
+			'delibera-highlight-script'
+		));
 
-		wp_enqueue_script( 'side-comments-script' );
-		wp_enqueue_script( 'wp-side-comments-script' );
-		wp_enqueue_script( 'highlight-script' );
-		wp_enqueue_script( 'texto-em-debate-script' );
+		wp_enqueue_script( 'delibera-side-comments-script' );
+		wp_enqueue_script( 'delibera-wp-side-comments-script' );
+		wp_enqueue_script( 'delibera-highlight-script' );
+		wp_enqueue_script( 'delibera-texto-em-debate-script' );
 	}
 
 	private function localizeScripts() {
@@ -182,15 +182,15 @@ class CTLT_WP_Side_Comments {
 		$nonHTTPS        = preg_replace( '/^https(?=:\/\/)/i', 'http', $adminAjaxURL );
 		$data['ajaxURL'] = $nonHTTPS;
 
-		$data['containerSelector'] = apply_filters( 'wp_side_comments_container_css_selector', '.commentable-container' );
+		$data['containerSelector'] = apply_filters( 'wp_side_comments_container_css_selector', '.commentable-container .entry-content' );
 
 		$data['allowUserInteraction'] = comments_open();
 
 		$templates['comment'] = $this->getCommentTemplate();
 		$templates['section'] = $this->getSectionTemplate();
 
-		wp_localize_script( 'side-comments-script', 'templates', $templates );
-		wp_localize_script( 'wp-side-comments-script', 'commentsData', $data );
+		wp_localize_script( 'delibera-side-comments-script', 'templates', $templates );
+		wp_localize_script( 'delibera-wp-side-comments-script', 'commentsData', $data );
 	}
 
 	/**
@@ -1189,4 +1189,4 @@ function wpsc_init_side_comments() {
 }
 
 //register initializer hook
-add_action( 'init', 'wpsc_init_side_comments', 11 );
+add_action( 'init', '\Delibera\Includes\SideComments\wpsc_init_side_comments', 11 );

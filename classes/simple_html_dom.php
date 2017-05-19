@@ -39,6 +39,9 @@
  * @subpackage simple_html_dom
  */
 
+// PHP 5.3 and later:
+namespace Delibera\Includes\SideComments;
+
 /**
  * All of the Defines for the classes below.
  * @author S.C. Chen <me578022@gmail.com>
