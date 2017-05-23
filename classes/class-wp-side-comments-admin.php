@@ -11,7 +11,7 @@ namespace Delibera\Includes\SideComments;
  */
 class WP_Side_Comments_Admin {
 	const SETTINGS_PAGE_SLUG = 'wp-side-comments-settings';
-	const SETTINGS_PAGE_TITLE = 'WP Side Comments';
+	const SETTINGS_PAGE_TITLE = 'Side Comments';
 	const SETTINGS_PAGE_NAME = 'wp-side-comments-options-page';
 
 	const SETTINGS_OPTIONS_GROUP = 'wp-side-comments-options-group';
@@ -20,7 +20,7 @@ class WP_Side_Comments_Admin {
 	const SETTINGS_SECTION_YES_VALUE = 'S';
 	const SETTINGS_SECTION_NO_VALUE = 'N';
 
-	const SETTINGS_SECTION_GUESTS_INTERACTION_ID = 'wp-side-comments-allow-guests-interaction';
+	const SETTINGS_SECTION_GUESTS_INTERACTION_ID = 'wp-side-comments-allow-guests-interaction'; //TODO const are not translatable in php before 5.6
 	const SETTINGS_SECTION_GUESTS_INTERACTION_TITLE = 'Interações de usuários visitantes';
 
 	const SETTINGS_SECTION_GUESTS_INTERACTION_FIELD_ID = 'wp-side-comments-allow-guests-interaction-field';
@@ -68,7 +68,7 @@ class WP_Side_Comments_Admin {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'init' ) );
-		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+		add_action( 'admin_menu', array( $this, 'add_plugin_page' ), 20 );
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
@@ -125,14 +125,23 @@ class WP_Side_Comments_Admin {
 	 * Adds plugin's page to admin's side menu
 	 */
 	public function add_plugin_page() {
-		add_menu_page(
+		/*add_menu_page(
 			self::SETTINGS_PAGE_TITLE,
 			self::SETTINGS_PAGE_TITLE,
 			'manage_options',
 			self::SETTINGS_PAGE_SLUG,
 			array( $this, 'create_admin_page' ),
 			'dashicons-format-chat'
+		);*/
+		add_submenu_page(
+				'delibera-config',
+				self::SETTINGS_PAGE_TITLE,
+				self::SETTINGS_PAGE_TITLE,
+				'manage_options',
+				self::SETTINGS_PAGE_SLUG,
+				array( $this, 'create_admin_page' )
 		);
+				
 	}
 
 	/**
