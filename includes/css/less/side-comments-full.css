@@ -376,19 +376,19 @@ p.commentable-section.active {
   border-color: #2980b9 transparent;
 }
 .active .comments-wrapper:before {
-  font-family: FontAwesome;
+  font-family: delibera;
   font-weight: normal;
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
 }
 .commentable-section.active:after {
-  font-family: FontAwesome;
+  font-family: Delibera;
   font-weight: normal;
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  content: "\F0D9";
+  content: "\e805";
   font-size: 50px;
   display: block;
   right: 32px;
@@ -424,12 +424,12 @@ p.commentable-section.active {
     width: 100%;
   }
   .comments-wrapper:before {
-    font-family: FontAwesome;
+    font-family: delibera;
     font-weight: normal;
     font-style: normal;
     text-decoration: inherit;
     -webkit-font-smoothing: antialiased;
-    content: "\F0D8";
+    content: "\e807";
     font-size: 50px;
     display: block;
     left: 50%;

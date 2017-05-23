@@ -302,7 +302,7 @@ p.commentable-section.active, .side-comment .comments-wrapper {
     width: 255px;
 }
 .active .comments-wrapper:before, .commentable-section.active:after {
-    font-family: FontAwesome;
+    font-family: delibera;
     font-weight: normal;
     font-style: normal;
     text-decoration: inherit;
@@ -365,7 +365,7 @@ p.commentable-section.active, .side-comment .comments-wrapper {
 }
 
 .commentable-section.active:after {
-    content: "\F0D9";
+    content: "\e805";
     font-size: 50px;
     display: block;
     right: 0;
@@ -430,7 +430,7 @@ p.commentable-section.active, .side-comment .comments-wrapper {
         margin: 20px 0 0;
     }
     .active .comments-wrapper:before {
-        content: "\F0D8";
+        content: "\e807";
         font-size: 50px;
         display: block;
         right: 50%;
