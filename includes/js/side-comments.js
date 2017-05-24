@@ -626,8 +626,9 @@ require.register("side-comments/js/section.js", function (exports, require, modu
     Section.prototype.showComment = function (event) {
         //console.log('clicked: showComment');
         if (event.type == "touchstart") return; //prevent opening comments box when swipeing screen
-
-        event.preventDefault();
+        
+        var target = jQuery( event.target );
+        if( ! target.is('label') && ! target.is('input') ) event.preventDefault();
 
         var target = $(event.target);
         var context = $(target.context);
@@ -758,7 +759,7 @@ require.register("side-comments/js/section.js", function (exports, require, modu
         var commentID = event.currentTarget.attributes["data-comment"].value;
         this.postComment(parentID, commentID);
     };
-
+    
     /**
      * Post a comment to this section.
      */
@@ -776,13 +777,24 @@ require.register("side-comments/js/section.js", function (exports, require, modu
             commentBody = this.$el.find('.comment-form[data-parent="0"][data-comment=""] .comment-box').html();
         }
         if (commentID == "") commentID = 0;
+        delibera_encaminha = 'N';
+        if (commentID > 0)
+        {
+        	delibera_encaminha = this.$el.find('input[name=delibera_encaminha-'+ commentID +']:checked').val();
+        }
+        else
+        {
+        	delibera_encaminha = this.$el.find('input[name=delibera_encaminha-]:checked').val();
+        }
+        
         var comment = {
             sectionId: this.id,
             comment: commentBody,
             //authorAvatarUrl: this.currentUser.avatarUrl,
             authorName: this.currentUser.name,
             authorId: this.currentUser.id,
-            parentID: commentID
+            parentID: commentID,
+            delibera_encaminha: delibera_encaminha
         };
         this.eventPipe.emit('commentPosted', comment);
     };

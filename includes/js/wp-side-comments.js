@@ -79,7 +79,8 @@ jQuery(document).ready(function ($) {
                     comment: comment.comment,
                     authorName: comment.authorName,
                     authorId: comment.authorId,
-                    parentID: comment.parentID
+                    parentID: comment.parentID,
+                    delibera_encaminha: comment.delibera_encaminha
                 },
                 success: function (response) {
 

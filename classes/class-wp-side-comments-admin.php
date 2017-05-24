@@ -68,7 +68,7 @@ class WP_Side_Comments_Admin {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'init' ) );
-		add_action( 'admin_menu', array( $this, 'add_plugin_page' ), 20 );
+		//add_action( 'admin_menu', array( $this, 'add_plugin_page' ), 20 );
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );

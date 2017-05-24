@@ -188,6 +188,11 @@ class CTLT_WP_Side_Comments {
 
 		$templates['comment'] = $this->getCommentTemplate();
 		$templates['section'] = $this->getSectionTemplate();
+		
+		$situacao = delibera_get_situacao();
+		
+		$data['situacao'] = $situacao->slug;
+		$data['pautas_suportam_encaminhamento'] = delibera_pautas_suportam_encaminhamento();
 
 		wp_localize_script( 'delibera-side-comments-script', 'templates', $templates );
 		wp_localize_script( 'delibera-wp-side-comments-script', 'commentsData', $data );
@@ -691,6 +696,13 @@ class CTLT_WP_Side_Comments {
 				'commentApproval' => $commentApproval,
 				'commentTime'     => static::getFriendlyCommentTime( $comment )
 			);
+			
+			if(array_key_exists('delibera_encaminha', $_REQUEST))
+			{
+				$encaminhamento = $_REQUEST['delibera_encaminha'];
+				\Delibera\Modules\Discussion::treatCommentType($comment, $encaminhamento);
+			}
+			
 		} else {
 			// wp_insert_comment failed
 			$result = array(

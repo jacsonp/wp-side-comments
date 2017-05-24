@@ -43,7 +43,14 @@
     <div class="comment-form clearfix" data-parent="<%= comment.parentID%>" data-comment="<%= comment.commentID %>">
         <div class="comentario-fill">
             <p class="author-name"> <%= currentUser.name %> </p>
-
+			<% if (commentsData.pautas_suportam_encaminhamento == 1) { %>
+				<% if (commentsData.situacao != 'relatoria') { %>
+					<label class="action-link opiniao delibera-encaminha-label" ><input type="radio" name="delibera_encaminha-<%= comment.commentID %>" value="N" checked="checked" />Opinião</label>
+				<% } %>
+				<label class="action-link encaminhamento delibera-encaminha-label" ><input type="radio" name="delibera_encaminha-<%= comment.commentID %>" value="S" <%= ((commentsData.situacao == 'relatoria') ? ' checked="checked" ' : '') %> />Proposta de encaminhamento</label>
+			<% } else { %>
+				<input type="hidden" name="delibera_encaminha-<%= comment.commentID %>" value="N" />
+			<% } %>
             <div class="comment-box" contenteditable="true" data-parent="<%= comment.parentID%>"
                  data-comment="<%= comment.commentID %>" data-placeholder-content="Responder">
             </div>
