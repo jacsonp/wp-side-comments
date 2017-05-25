@@ -3,6 +3,8 @@
 // PHP 5.3 and later:
 namespace Delibera\Includes\SideComments;
 
+use Delibera\Modules\Discussion;
+
 /**
  * Created by PhpStorm.
  * User: josafa filho <josafafilho15@gmail.com>
@@ -326,6 +328,8 @@ class CTLT_WP_Side_Comments {
 			if ( $sideComment && $sideComment != '' ) {
 				$toAdd['sideComment'] = $section;
 			}
+			
+			$toAdd['encaminhamento'] = Discussion::isEncaminhamento($commentData->comment_ID); 
 
 			$sideCommentData[ $section ][] = $toAdd;
 

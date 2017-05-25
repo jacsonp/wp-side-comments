@@ -1,4 +1,4 @@
-<li class="clearfix comment-main" data-comment-id="<%= comment.commentID %>" data-parent-id="<%= comment.parentID%>">
+<li class="clearfix comment-main <%= comment.encaminhamento ? 'encaminhamento' : '' %>" data-comment-id="<%= comment.commentID %>" data-parent-id="<%= comment.parentID%>">
     <div class="clearfix">
         <div class="comentario-fill">
             <p class="author-name"><%= comment.authorName %></p>
