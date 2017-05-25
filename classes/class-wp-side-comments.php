@@ -135,9 +135,18 @@ class CTLT_WP_Side_Comments {
 
 	private function weAreOnAValidScreen() {
 		// We don't have anything for the admin at the moment and comments are only on a single
-		if ( is_admin() || ! is_singular() ) {
+		if (
+				is_admin() ||
+				! is_singular() ||
+				get_post_type() != 'pauta'
+		)
+		{
 			return false;
 		}
+		
+		$situacao = \delibera_get_situacao();
+		
+		if($situacao->slug != 'discussao') return false;
 
 		return true;
 	}
