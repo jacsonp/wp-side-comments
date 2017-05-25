@@ -1035,7 +1035,7 @@ class simple_html_dom
 	{
 		if ($str)
 		{
-			if (preg_match("/^http:\/\//i",$str) || is_file($str))
+			if (preg_match("/^http:\/\//i",$str) || ( strlen($str) < 4096 /* default path size limit */ && is_file($str) ) )
 			{
 				$this->load_file($str);
 			}
