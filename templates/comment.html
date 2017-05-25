@@ -14,19 +14,8 @@
 
                 <div class="mt-xs">
                     <% if (currentUser && allowUserInteraction){ %>
-                    <a data-comment-id="<%= comment.commentID %>"
-                       class="vote-up vote-btn btn btn-default btn-xs fontsize-sm text-green" href="#"><i
-                            class="fa fa-thumbs-o-up"></i> Concordo <span
-                            id="comment-upvote-value-<%= comment.commentID %>"><%= comment.upvotes %></span></a>
-                    <a data-comment-id="<%= comment.commentID %>"
-                       class="vote-down vote-btn btn btn-default btn-xs fontsize-sm red" href="#"><i
-                            class="fa fa-thumbs-o-down"></i> Discordo <span
-                            id="comment-downvote-value-<%= comment.commentID %>"><%= comment.downvotes %></span></a>
-                    <% } else { %>
-                    <a disabled="true" class="btn btn-default btn-xs fontsize-sm text-green" href="#"><i
-                            class="fa fa-thumbs-o-up"></i> Concordaram <%= comment.upvotes %> </a>
-                    <a disabled="true" class="btn btn-default btn-xs fontsize-sm red" href="#"><i
-                            class="fa fa-thumbs-o-down"></i> Discordaram <%= comment.downvotes %> </a>
+                    	<%= comment.voteUp %>
+                    	<%= comment.voteDown %>
                     <% } %>
                 </div>
                 <% if (currentUser && allowUserInteraction){ %>

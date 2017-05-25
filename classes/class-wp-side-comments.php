@@ -187,7 +187,7 @@ class CTLT_WP_Side_Comments {
 		$data['containerSelector'] = apply_filters( 'wp_side_comments_container_css_selector', '.commentable-container' );
 
 		$data['allowUserInteraction'] = comments_open();
-
+		
 		$templates['comment'] = $this->getCommentTemplate();
 		$templates['section'] = $this->getSectionTemplate();
 		
@@ -329,7 +329,10 @@ class CTLT_WP_Side_Comments {
 				$toAdd['sideComment'] = $section;
 			}
 			
-			$toAdd['encaminhamento'] = Discussion::isEncaminhamento($commentData->comment_ID); 
+			$toAdd['encaminhamento'] = \Delibera\Modules\Discussion::isEncaminhamento($commentData->comment_ID);
+			
+			$toAdd['voteUp'] = \delibera_gerar_curtir($commentData->comment_ID, 'comment');
+			$toAdd['voteDown'] = \delibera_gerar_discordar($commentData->comment_ID, 'comment');
 
 			$sideCommentData[ $section ][] = $toAdd;
 
@@ -577,8 +580,12 @@ class CTLT_WP_Side_Comments {
 		}
 
 		//last attempt try to handle data coming from wp_autosave
-		$ajaxData = $_REQUEST['data']['wp_autosave'];
-
+		$ajaxData = array();
+		if(array_key_exists('data', $_REQUEST) && array_key_exists('wp_autosave', $_REQUEST['data']))
+		{
+			$ajaxData = $_REQUEST['data']['wp_autosave'];
+		}
+		
 		//check the post_type querystring
 		if ( isset( $ajaxData['post_type'] ) ) {
 			return sanitize_key( $ajaxData['post_type'] );
