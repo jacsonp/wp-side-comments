@@ -65,23 +65,37 @@ jQuery(document).ready(function ($) {
         }
 
         var commentText = comment.comment.replace(/&nbsp;/g, ' ');
+        
+        var commentData = new FormData();
+        commentData.append('attachment', document.getElementById('attachment').files[0]);
+        /*action: 'add_side_comment',
+        nonce: nonce,
+        postID: postID,
+        sectionID: comment.sectionId,
+        comment: comment.comment,
+        authorName: comment.authorName,
+        authorId: comment.authorId,
+        parentID: comment.parentID,
+        delibera_encaminha: comment.delibera_encaminha,
+        attachment: commentAttachment*/
+        commentData.append('action', 'add_side_comment');
+        commentData.append('nonce', nonce);
+        commentData.append('postID', postID);
+        commentData.append('sectionID', comment.sectionId);
+        commentData.append('comment', comment.comment);
+        commentData.append('authorName', comment.authorName);
+        commentData.append('authorId', comment.authorId);
+        commentData.append('parentID', comment.parentID);
+        commentData.append('delibera_encaminha', comment.delibera_encaminha);
 
         if (commentText.trim().length > 0) {
             $.ajax({
                 url: ajaxURL,
                 dataType: 'json',
                 type: 'POST',
-                data: {
-                    action: 'add_side_comment',
-                    nonce: nonce,
-                    postID: postID,
-                    sectionID: comment.sectionId,
-                    comment: comment.comment,
-                    authorName: comment.authorName,
-                    authorId: comment.authorId,
-                    parentID: comment.parentID,
-                    delibera_encaminha: comment.delibera_encaminha
-                },
+                processData: false,
+                contentType: false,
+                data: commentData,
                 success: function (response) {
 
                     if (response.success === false) {
@@ -111,7 +125,7 @@ jQuery(document).ready(function ($) {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     var erro = $('.hidden > .alert-danger').clone();
-                    erro.find('p').html("Falha ao adicionar o comentário. Tente novamente mais tarde");
+                    erro.find('p').html("Falha ao adicionar o comentário. Tente novamente mais tarde<br/><strong>Error:</strong><br/>" + jqXHR.responseText);
                     erro.hide().insertBefore(parent).fadeIn(1000).delay(5000).slideUp(1000, function () {
                         $(this).remove();
                     });

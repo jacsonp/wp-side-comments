@@ -95,6 +95,8 @@ class CTLT_WP_Side_Comments {
 
 		//Set up searchable area
 		add_filter( 'the_content', array( $this, 'addSearchableClassesToContent' ), 51 );
+		
+		add_action('delibera-comments-list', array($this, 'deliberaCommentList'));
 	}/* __construct() */
 
 	/**
@@ -645,7 +647,6 @@ class CTLT_WP_Side_Comments {
 	 * @return string|int returnDescription
 	 */
 	public function wp_ajax_add_side_comment__AJAXHandler() {
-
 		if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'side_comments_nonce' ) ) {
 			wp_send_json_error( array(
 				'error_message' => __( 'Você não pode executar esta ação. Tente novamente mais tarde.', 'wp-side-comments' )
@@ -701,7 +702,15 @@ class CTLT_WP_Side_Comments {
 			'comment_date'         => null,
 			'comment_approved'     => $commentApproval
 		);
-
+		
+		$wpCommentAttachment = false;
+		if(class_exists('\wpCommentAttachment') && array_key_exists('attachment', $_FILES))
+		{
+			$_POST['comment_post_ID'] = $postID;
+			$wpCommentAttachment = new \wpCommentAttachment();
+			$wpCommentAttachment->checkAttachment($wpInsertCommentArgs);
+		}
+		
 		$newCommentID = wp_insert_comment( $wpInsertCommentArgs );
 
 		if ( $newCommentID ) {
@@ -721,6 +730,11 @@ class CTLT_WP_Side_Comments {
 			{
 				$encaminhamento = $_REQUEST['delibera_encaminha'];
 				\Delibera\Modules\Discussion::treatCommentType($comment, $encaminhamento);
+			}
+			
+			if($wpCommentAttachment)
+			{
+				$wpCommentAttachment->saveAttachment($newCommentID);
 			}
 			
 		} else {
@@ -1199,6 +1213,39 @@ class CTLT_WP_Side_Comments {
 			'timestamp'    => $comment->comment_date,
 		);
 	}
+	
+	public function deliberaCommentList()
+	{
+		if(!$this->weAreOnAValidScreen()) return ;
+		?>
+		<div class="hidden">
+			<div class="alert alert-success mt-xs mb-xs pt-xs pb-xs" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+						aria-hidden="true">&times;</span>
+				</button>
+				<p class="fontsize-sm">Texto de <a href="#" class="alert-link">Sucesso</a></p>
+			</div>
+			<div class="alert alert-info mt-xs mb-xs pt-xs pb-xs" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+						aria-hidden="true">&times;</span>
+				</button>
+				<p class="fontsize-sm">Texto de <a href="#" class="alert-link">Info</a></p>
+			</div>
+			<div class="alert alert-warning mt-xs mb-xs pt-xs pb-xs" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+						aria-hidden="true">&times;</span>
+				</button>
+				<p class="fontsize-sm">Texto de <a href="#" class="alert-link">Aviso</a></p>
+			</div>
+			<div class="alert alert-danger mt-xs mb-xs pt-xs pb-xs" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+						aria-hidden="true">&times;</span>
+				</button>
+				<p class="fontsize-sm">Texto de <a href="#" class="alert-link">Erro</a></p>
+			</div>
+		</div><?php	
+	} 
+	
 }/* class CTLT_WP_Side_Comments */
 
 //Plugin initializer

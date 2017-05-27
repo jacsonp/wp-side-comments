@@ -694,6 +694,8 @@ require.register("side-comments/js/section.js", function (exports, require, modu
             this.$el.find('.add-comment[data-comment="' + commentID + '"]').addClass('hide');
             this.$el.find('.add-reply[data-comment="' + commentID + '"]').addClass('hide');
             this.$el.find('.comment-form[data-comment="' + commentID + '"]').addClass('active');
+            jQuery(".comment-form-attachment").detach().appendTo('#comment-box-entry-attachment-' + commentID);
+            jQuery(".delibera_before_fields").hide();
         }
 
         this.focusCommentBox(parentID, commentID);
@@ -707,6 +709,8 @@ require.register("side-comments/js/section.js", function (exports, require, modu
             this.$el.find('.add-comment').removeClass('hide');
             this.$el.find('.add-reply').removeClass('hide');
             this.$el.find('.comment-form').removeClass('active');
+            jQuery(".comment-form-attachment").detach().prependTo('#attachmentForm');
+            jQuery(".delibera_before_fields").show();
         }
 
         this.$el.find('.comment-box:not(.register-login)').empty();
