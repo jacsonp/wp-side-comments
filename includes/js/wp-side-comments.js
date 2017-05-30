@@ -1,3 +1,25 @@
+function deliberaSideCommentScrollTop(e)
+{
+	var target = $(e.target);
+    //var sectionSelected = target.parents(".commentable-section.active");
+    var sectionSelected = target;
+    if(!sectionSelected.hasClass('commentable-section'))
+    	sectionSelected = jQuery(e.target).parents('.commentable-section:first');
+    if(!sectionSelected.hasClass('active')) return;
+    var menuTopo = $('#main-header');
+    if (sectionSelected.offset()) {
+        var scrollPos = sectionSelected.offset().top;
+        if (menuTopo.hasClass('et-fixed-header')) {
+            scrollPos -= menuTopo.outerHeight(true);
+        } else {
+            scrollPos -= menuTopo.outerHeight(true) * 2;
+        }
+        $('body,html').animate({
+            scrollTop: scrollPos
+        }, 500);
+    }
+}
+
 jQuery(document).ready(function ($) {
 
     // Initialize ourselves
@@ -212,23 +234,10 @@ jQuery(document).ready(function ($) {
     });
 
     //When clicked browser scrolls to top of item
-    $(".marker").on('click', function (e) {
-        var target = $(e.target);
-        var sectionSelected = target.parents(".commentable-section.active");
-        var menuTopo = $('.menu-topo-mc');
-        if (sectionSelected.offset()) {
-            var scrollPos = sectionSelected.offset().top;
-            if (menuTopo.hasClass('fixed-top-mc')) {
-                scrollPos -= menuTopo.outerHeight(true);
-            } else {
-                scrollPos -= menuTopo.outerHeight(true) * 2;
-            }
-            $('body,html').animate({
-                scrollTop: scrollPos
-            }, 500);
-        }
+    $(".marker, .commentable-section").on('click', function (e) {
+    	deliberaSideCommentScrollTop(e);
     });
-
+    
     //Trigger close events when close btn is clicked or touched
     $(".comments-header div.close-btn").on('click touchstart', function (e) {
         e.preventDefault();
@@ -337,4 +346,9 @@ jQuery(document).ready(function ($) {
             }
         });
     });
+    
+    sideComments.eventPipe.on('hideComments', function (e) {
+    	alert('Aaaaaaaaaaaaaaa');
+    });
+    
 });
