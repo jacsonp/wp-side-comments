@@ -16,14 +16,10 @@
                     <% if (currentUser && allowUserInteraction){ %>
                     	<%= comment.voteUp %>
                     	<%= comment.voteDown %>
+                    	<a href="#" class="add-reply fontsize-sm delibera-icon-reply" data-parent="<%= comment.parentID%>"
+							data-comment="<%= comment.commentID %>"> <i class="fa fa-comment-o"></i></a>
                     <% } %>
                 </div>
-                <% if (currentUser && allowUserInteraction){ %>
-                <div class="mt-xs">
-                    <a href="#" class="add-reply fontsize-sm" data-parent="<%= comment.parentID%>"
-                       data-comment="<%= comment.commentID %>"> <i class="fa fa-comment-o"></i> Responder</a>
-                </div>
-                <% } %>
             </div>
         </div>
     </div>
@@ -46,9 +42,9 @@
             </div>
             <div class="actions">
                 <a href="#" class="action-link reply btn btn-default btn-sm text-blue"
-                   data-parent="<%= comment.parentID %>" data-comment="<%= comment.commentID %>">Enviar</a>
+                   data-parent="<%= comment.parentID %>" data-comment="<%= comment.commentID %>"><%= commentsData.texts['button-send'] %></a>
                 <a href="#" class="action-link cancel btn btn-default btn-sm red" data-parent="<%= comment.parentID %>"
-                   data-comment="<%= comment.commentID %>">Cancelar</a>
+                   data-comment="<%= comment.commentID %>"><%= commentsData.texts['button-cancel'] %></a>
             </div>
         </div>
     </div>

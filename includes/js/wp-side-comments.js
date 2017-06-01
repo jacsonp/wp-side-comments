@@ -347,8 +347,4 @@ jQuery(document).ready(function ($) {
         });
     });
     
-    sideComments.eventPipe.on('hideComments', function (e) {
-    	alert('Aaaaaaaaaaaaaaa');
-    });
-    
 });

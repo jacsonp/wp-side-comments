@@ -202,6 +202,14 @@ class CTLT_WP_Side_Comments {
 		$templates['comment'] = $this->getCommentTemplate();
 		$templates['section'] = $this->getSectionTemplate();
 		
+		$data['texts']['list-header'] = __('Comentários deste parágrafo', 'delibera');
+		$data['texts']['button-send'] = __('Publicar', 'delibera');
+		$data['texts']['button-cancel'] = __('Cancelar', 'delibera');
+		//$data['texts']['list-header'] = __('', 'delibera');
+		
+		
+		
+		
 		$situacao = delibera_get_situacao();
 		
 		$data['situacao'] = $situacao->slug;
