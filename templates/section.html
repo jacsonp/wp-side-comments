@@ -25,20 +25,21 @@
         </div>
         <% if (!allowUserInteraction){ %>
         <div class="user-interaction-disabled">
-            As interações (comentários e votação) com este texto estão fechadas ou já se encerraram.
+            <%= commentsData.texts['closed-topic-text'] %>
         </div>
         <% } else if (currentUser){ %>
-        <a href="#" class="add-comment mt-sm btn btn-success btn-md" data-parent="0" data-comment="">
-            Deixe seu comentário
+        <a href="#" class="add-comment mt-sm btn btn-success btn-md delibera-icon-chat-empty" data-parent="0" data-comment="">
+            <%= commentsData.texts['leave-a-comment'] %>
         </a>
 
         <div class="comment-form" data-parent="0" data-comment="">
             <p class="author-name"> <%= currentUser.name %> </p>
+            <div id="comment-box-entry-attachment-" class="comment-box-entry-attachment"></div>
 			<% if (commentsData.pautas_suportam_encaminhamento == 1) { %>
 				<% if (commentsData.situacao != 'relatoria') { %>
-					<label class="action-link opiniao delibera-encaminha-label" ><input type="radio" name="delibera_encaminha-<%= comment.commentID %>" value="N" checked="checked" />Opinião</label>
+					<label class="action-link opiniao delibera-encaminha-label" ><input type="radio" name="delibera_encaminha-<%= comment.commentID %>" value="N" checked="checked" /><%= commentsData.texts['opinion'] %></label>
 				<% } %>
-				<label class="action-link encaminhamento delibera-encaminha-label" ><input type="radio" name="delibera_encaminha-<%= comment.commentID %>" value="S" <%= ((commentsData.situacao == 'relatoria') ? ' checked="checked" ' : '') %> />Proposta de encaminhamento</label>
+				<label class="action-link encaminhamento delibera-encaminha-label" ><input type="radio" name="delibera_encaminha-<%= comment.commentID %>" value="S" <%= ((commentsData.situacao == 'relatoria') ? ' checked="checked" ' : '') %> /><%= commentsData.texts['referral'] %></label>
 			<% } else { %>
 				<input type="hidden" name="delibera_encaminha-<%= comment.commentID %>" value="N" />
 			<% } %>
@@ -46,14 +47,14 @@
             </div>
             <div class="mt-sm">
                 <a href="#" class="action-link post btn btn-default text-blue" data-parent="0"
-                   data-comment="">Enviar</a>
-                <a href="#" class="action-link cancel btn btn-default red" data-parent="0" data-comment="">Cancelar</a>
+                   data-comment=""><%= commentsData.texts['button-send'] %></a>
+                <a href="#" class="action-link cancel btn btn-default red" data-parent="0" data-comment=""><%= commentsData.texts['button-cancel'] %></a>
             </div>
         </div>
         <% } else { %>
         <div class="back-to-login et_pb_ajax_login_button">
             <a href="#" class="add-comment mt-sm btn btn-info btn-md">
-                Para participar, você precisa estar logado
+                <%= commentsData.texts['need-login'] %>
             </a>
         </div>
         <% } %>

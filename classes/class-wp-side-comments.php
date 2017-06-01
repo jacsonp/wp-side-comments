@@ -206,6 +206,11 @@ class CTLT_WP_Side_Comments {
 		$data['texts']['button-send'] = __('Publicar', 'delibera');
 		$data['texts']['button-cancel'] = __('Cancelar', 'delibera');
 		//$data['texts']['list-header'] = __('', 'delibera');
+		$data['texts']['opinion'] = __('Opinião', 'delibera');
+		$data['texts']['referral'] = __('Proposta de encaminhamento', 'delibera');
+		$data['texts']['closed-topic-text'] = __('As interações com esta pauta estão fechadas ou já se encerraram.', 'delibera');
+		$data['texts']['leave-a-comment'] = __('Deixe seu comentário', 'delibera');
+		$data['texts']['need-login'] = __('Para participar, você precisa estar logado', 'delibera');
 		
 		
 		

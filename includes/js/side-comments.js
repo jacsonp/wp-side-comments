@@ -652,7 +652,8 @@ require.register("side-comments/js/section.js", function (exports, require, modu
 
         var com_sec = jQuery(event.target).parents('.commentable-section:first');
 
-        if (com_sec.find('.active').length == 0 && !jQuery(event.target).hasClass('fa-times')) {
+        if (!com_sec.hasClass('active') && !jQuery(event.target).hasClass('fa-times')) {
+        	this.$el = com_sec;
             this.select();
         }
     };

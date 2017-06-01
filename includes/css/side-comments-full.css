@@ -197,8 +197,18 @@
 }
 .side-comment .comments-wrapper .comments li .comentario-fill {
   width: 100%;
-  padding: 10px 0px;
+  border-radius: 0.5em;
+  padding: 0.5em 0.5em 0.25em;
 }
+
+.side-comment .comments-wrapper .comments li .comentario-fill.opiniao {
+    background-color: #cfcfcf;
+}
+
+.side-comment .comments-wrapper .comments li .comentario-fill.encaminhamento {
+    background-color: #a8e7f9;
+}
+
 .side-comment .comments-wrapper .comments .comment {
   margin: 0 0 10px 0;
   font-size: 15px;
