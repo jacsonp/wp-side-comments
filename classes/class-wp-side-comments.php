@@ -57,6 +57,28 @@ class CTLT_WP_Side_Comments {
 		// Filter content_save_pre to add our specific inline classes
 		add_filter( 'content_save_pre', array( $this, 'addSideCommentsClassesToContent' ) );
 
+		// Side comments shouldn't be shown in the main comment area at the bototm
+		add_filter( 'wp-hybrid-clf_list_comments_args', array(
+			$this,
+			'list_comments_args__removeSidecommentsFromLinearComments'
+		) );
+		
+		// Get the proper template for post type texto-em-debate
+		//add_filter( 'single_template', array( $this, 'get_texto_em_debate_template' ) );
+		
+		// When side comments are removed, the totals are wrong on the front-end
+		add_filter( 'get_comments_number', array(
+			$this,
+			'get_comments_number__adjustCommentsNumberToRemoveSidecomments'
+		), 10, 2 );
+		
+		//Set up searchable area
+		add_filter( 'the_content', array( $this, 'addSearchableClassesToContent' ), 51 );
+		
+		add_action('delibera-comments-list', array($this, 'deliberaCommentList'));
+		
+		// Ajax
+		
 		// Set up AJAX handlers for the create a new comment action
 		add_action( 'wp_ajax_add_side_comment', array( $this, 'wp_ajax_add_side_comment__AJAXHandler' ) );
 		add_action( 'wp_ajax_nopriv_add_side_comment', array( $this, 'wp_ajax_add_side_comment__AJAXHandler' ) );
@@ -64,18 +86,6 @@ class CTLT_WP_Side_Comments {
 		// Set up AJAX handlers for comment deletion
 		add_action( 'wp_ajax_delete_side_comment', array( $this, 'wp_ajax_delete_side_comment__AJAXHandler' ) );
 		add_action( 'wp_ajax_nopriv_delete_side_comment', array( $this, 'wp_ajax_delete_side_comment__AJAXHandler' ) );
-
-		// Side comments shouldn't be shown in the main comment area at the bototm
-		add_filter( 'wp-hybrid-clf_list_comments_args', array(
-			$this,
-			'list_comments_args__removeSidecommentsFromLinearComments'
-		) );
-
-		// When side comments are removed, the totals are wrong on the front-end
-		add_filter( 'get_comments_number', array(
-			$this,
-			'get_comments_number__adjustCommentsNumberToRemoveSidecomments'
-		), 10, 2 );
 
 		//Set up AJAX handlers for comment voting
 		add_action( 'wp_ajax_comment_vote_callback', array( $this, 'comment_vote_callback' ) );
@@ -90,13 +100,6 @@ class CTLT_WP_Side_Comments {
 		add_action( 'wp_ajax_last_comments_callback', array( $this, 'last_comments_callback' ) );
 		add_action( 'wp_ajax_nopriv_last_comments_callback', array( $this, 'last_comments_callback' ) );
 
-		// Get the proper template for post type texto-em-debate
-		//add_filter( 'single_template', array( $this, 'get_texto_em_debate_template' ) );
-
-		//Set up searchable area
-		add_filter( 'the_content', array( $this, 'addSearchableClassesToContent' ), 51 );
-		
-		add_action('delibera-comments-list', array($this, 'deliberaCommentList'));
 	}/* __construct() */
 
 	/**
@@ -552,7 +555,7 @@ class CTLT_WP_Side_Comments {
 		if ( $this->get_current_post_type() == "pauta" && $content ) {
 			$content = str_replace( "\\\"", '"', $content );
 
-			$dom = new simple_html_dom( $content );
+			$dom = new simple_html_dom( $content, true, true, DEFAULT_TARGET_CHARSET, false );
 
 			$commentableElements = $dom->find( '.commentable-section' );
 
