@@ -108,7 +108,7 @@
   width: 20px;
 }
 .side-comment .comments-estructure {
-  max-height: 512px;
+  max-height: 490px;
   overflow-y: auto;
   border-bottom: 1px solid #ccc;
 }
@@ -170,7 +170,7 @@
 }
 .side-comment .comments-wrapper .comments-header {
   margin: 0;
-  padding: 0;
+  padding: 0 0 1em 0;
   border-bottom: 1px solid #ccc;
 }
 .side-comment .comments-wrapper .comments-header .titulo-comments {
@@ -191,9 +191,6 @@
   width: 100%;
   overflow: hidden;
   padding: 10px 10px 0 10px;
-  margin-top: 15px;
-  border-left: 1px dashed #ccc;
-  border-top: 1px dashed #ccc;
 }
 .side-comment .comments-wrapper .comments li .comentario-fill {
   width: 100%;
@@ -209,6 +206,26 @@
     background-color: #a8e7f9;
 }
 
+.action-link.post.btn.btn-default,
+.action-link.cancel.btn.btn-default,
+.action-link.reply.btn.btn-default,
+.add-comment.mt-sm.btn.btn-success.btn-md
+ {
+    background-color: #3dcff4;
+    color: #fff;
+    border-radius: 1em;
+    padding: 0.15em 0.5em 0.25em;
+    font-weight: 600;
+}
+
+.add-comment.mt-sm.btn.btn-success.btn-md {
+	margin-top: 0.5em;
+}
+
+.mt-sm.side-comments-action-links {
+    text-align: center;
+}
+
 .side-comment .comments-wrapper .comments .comment {
   margin: 0 0 10px 0;
   font-size: 15px;
@@ -218,7 +235,7 @@
   font-size: 11px !important;
 }
 .side-comment .comment-box {
-  margin: 0;
+  margin: 0 0 1em 0;
   font-size: 14px;
   line-height: 18px;
   outline: none;
@@ -248,6 +265,7 @@
   overflow: hidden;
   padding: 15px 0;
   z-index: 10;
+  margin-top: 0;
 }
 .side-comment .comment-form.active {
   display: block;
@@ -289,7 +307,8 @@
 .side-comment .author-name {
   font-size: 15px;
   line-height: 16px;
-  margin: 0 0 2px 0;
+  margin: 0;
+  padding: 0;
   font-weight: 700;
   text-decoration: none;
   color: #222222;
@@ -398,14 +417,24 @@ p.commentable-section.active {
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  content: "\e805";
+  content: "\e820";
   font-size: 50px;
   display: block;
   right: 32px;
-  top: 0;
+  top: 35%;
   position: absolute;
-  color: #999999;
+  color: #666666;
 }
+
+.commentlist .side-comment, .hidden {
+	display:none;
+}
+
+.side-comment a.attachmentLink {
+    width: 100%;
+    display: block;
+}
+
 @media only screen and (max-width: 1125px) {
   .side-comment .comments-wrapper {
     width: 385px;
@@ -439,7 +468,7 @@ p.commentable-section.active {
     font-style: normal;
     text-decoration: inherit;
     -webkit-font-smoothing: antialiased;
-    content: "\e807";
+    content: "\e822";
     font-size: 50px;
     display: block;
     left: 50%;

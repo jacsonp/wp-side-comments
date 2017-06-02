@@ -5,7 +5,7 @@
 
             <p class="comment-time"> <%= comment.time %> </p>
 
-            <p class="comment"> <%= comment.comment %> </p>
+            <div class="comment delibera-comment-text"> <%= comment.comment %> </div>
             <% if (currentUser && comment.authorId === currentUser.id){ %>
             <!--//'<p><a href="#" class="fontsize-sm red">Deletar</a></p>-->
             <% } %>

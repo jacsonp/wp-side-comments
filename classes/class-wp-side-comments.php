@@ -313,9 +313,11 @@ class CTLT_WP_Side_Comments {
 
 		// Start fresh
 		$sideCommentData = array();
+		global $comment;
 
 		foreach ( $comments as $key => $commentData ) {
-
+			
+			$comment = $commentData;
 			$thisCommentID = $commentData->comment_ID;
 
 			$section = get_comment_meta( $thisCommentID, 'side-comment-section', true );
@@ -339,7 +341,7 @@ class CTLT_WP_Side_Comments {
 			$toAdd = array(
 				'authorAvatarUrl' => static::get_avatar_url( $commentData->comment_author_email ),
 				'authorName'      => $commentData->comment_author,
-				'comment'         => $commentData->comment_content,
+				'comment'         => apply_filters('comment_text', $commentData->comment_content, $commentData, array()),
 				'commentID'       => $commentData->comment_ID,
 				'authorID'        => $commentData->user_id,
 				'parentID'        => $commentData->comment_parent,
@@ -725,7 +727,7 @@ class CTLT_WP_Side_Comments {
 		}
 		
 		$newCommentID = wp_insert_comment( $wpInsertCommentArgs );
-
+		
 		if ( $newCommentID ) {
 
 			// Now we have a new comment ID, we need to add the meta for the section, stored as 'side-comment-section'
@@ -736,18 +738,26 @@ class CTLT_WP_Side_Comments {
 				'type'            => 'success',
 				'newCommentID'    => $newCommentID,
 				'commentApproval' => $commentApproval,
-				'commentTime'     => static::getFriendlyCommentTime( $comment )
+				'commentTime'     => static::getFriendlyCommentTime( $comment ),
+				'comment'		  => $commentText,
+				'voteUp'		  => \delibera_gerar_curtir($comment->comment_ID, 'comment'),
+				'voteDown'		  => \delibera_gerar_discordar($comment->comment_ID, 'comment')
 			);
 			
 			if(array_key_exists('delibera_encaminha', $_REQUEST))
 			{
-				$encaminhamento = $_REQUEST['delibera_encaminha'];
+				$encaminhamento = sanitize_text_field($_REQUEST['delibera_encaminha']);
 				\Delibera\Modules\Discussion::treatCommentType($comment, $encaminhamento);
+				$result['encaminhamento'] = $encaminhamento == "S";
 			}
 			
 			if($wpCommentAttachment)
 			{
 				$wpCommentAttachment->saveAttachment($newCommentID);
+				$commentNew = $comment;
+				global $comment;
+				$comment = $commentNew;
+				$result['comment'] = $wpCommentAttachment->displayAttachment($result['comment']);
 			}
 			
 		} else {

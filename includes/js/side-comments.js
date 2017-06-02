@@ -628,7 +628,11 @@ require.register("side-comments/js/section.js", function (exports, require, modu
         if (event.type == "touchstart") return; //prevent opening comments box when swipeing screen
         
         var target = jQuery( event.target );
-        if( ! target.is('label') && ! target.is('input') && !target.hasClass('et_pb_ajax_login_button') ) event.preventDefault();
+        if( ! target.is('label') &&
+        	! target.is('input') &&
+        	! target.hasClass('et_pb_ajax_login_button') &&
+        	! ( target.hasClass('attachmentLink') || target.parent().hasClass('attachmentLink') ) 
+        ) event.preventDefault();
 
         var target = $(event.target);
         var context = $(target.context);

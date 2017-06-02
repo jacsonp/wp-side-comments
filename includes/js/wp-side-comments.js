@@ -5,7 +5,7 @@ function deliberaSideCommentScrollTop(e)
     var sectionSelected = target;
     if(!sectionSelected.hasClass('commentable-section'))
     	sectionSelected = jQuery(e.target).parents('.commentable-section:first');
-    if(!sectionSelected.hasClass('active')) return;
+    if(!sectionSelected.hasClass('active') || target.hasClass('btn')) return;
     var menuTopo = $('#main-header');
     if (sectionSelected.offset()) {
         var scrollPos = sectionSelected.offset().top;
@@ -64,6 +64,17 @@ jQuery(document).ready(function ($) {
         }
 
     }
+    
+    function sideCommentScreenSizes()
+    {
+    	if(jQuery('.type-pauta').length > 0 && jQuery(window).width() > 1024)
+    	{
+    		postWidth = Math.floor(jQuery('.type-pauta').width() * 0.44);
+    		jQuery( '<style type="text/css" media="screen"> .side-comment .comments-wrapper { width: '+ postWidth +'px; }</style>' ).appendTo( "body" )
+    	}
+    }
+    
+    sideCommentScreenSizes();
 
     // Then, create a new SideComments instance, passing in the wrapper element and the optional the current user and any existing comments.
     sideComments = new SideComments(containerSelector, currentUser, formattedCommentData, allowUserInteraction);
@@ -131,6 +142,10 @@ jQuery(document).ready(function ($) {
                         comment.id = response.data.newCommentID;
                         comment.commentID = comment.id;
                         comment.time = response.data.commentTime;
+                        comment.encaminhamento = response.data.encaminhamento;
+                        comment.comment = response.data.comment;
+                        comment.voteUp = response.data.voteUp;
+                        comment.voteDown = response.data.voteDown;
 
                         //setting default values for a new comment
                         comment.karma = 0;
