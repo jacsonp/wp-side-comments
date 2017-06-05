@@ -206,16 +206,23 @@
     background-color: #a8e7f9;
 }
 
-.action-link.post.btn.btn-default,
-.action-link.cancel.btn.btn-default,
-.action-link.reply.btn.btn-default,
-.add-comment.mt-sm.btn.btn-success.btn-md
+.side-comment .action-link.post.btn.btn-default,
+.side-comment .action-link.cancel.btn.btn-default,
+.side-comment .action-link.reply.btn.btn-default,
+.side-comment .add-comment.mt-sm.btn.btn-success.btn-md
  {
     background-color: #3dcff4;
     color: #fff;
     border-radius: 1em;
     padding: 0.15em 0.5em 0.25em;
     font-weight: 600;
+}
+
+.side-comment .back-to-login.et_pb_ajax_login_button a{
+	background-color: #3dcff4;
+	text-align: center;
+	color: #fff;
+	border-radius: 1em;
 }
 
 .add-comment.mt-sm.btn.btn-success.btn-md {
@@ -433,6 +440,17 @@ p.commentable-section.active {
 .side-comment a.attachmentLink {
     width: 100%;
     display: block;
+}
+
+.fa.fa-times.delibera-icon-cancel {
+    display: block;
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+    border-radius: 1em;
+    background-color: #3dcff4;
+    color: #fff;
+    padding: 0.1em;
 }
 
 @media only screen and (max-width: 1125px) {
