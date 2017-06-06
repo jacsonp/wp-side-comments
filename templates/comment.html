@@ -28,7 +28,7 @@
     <div class="comment-form clearfix" data-parent="<%= comment.parentID%>" data-comment="<%= comment.commentID %>">
         <div class="comentario-fill">
             <p class="author-name"> <%= currentUser.name %> </p>
-            <div id="comment-box-entry-attachment-<%= comment.commentID %>" class="comment-box-entry-attachment"></div>
+            <div class="comment-box-entry-attachment comment-box-entry-attachment-<%= comment.commentID %>"></div>
 			<% if (commentsData.pautas_suportam_encaminhamento == 1) { %>
 				<% if (commentsData.situacao != 'relatoria') { %>
 					<label class="action-link opiniao delibera-encaminha-label" ><input type="radio" name="delibera_encaminha-<%= comment.commentID %>" value="N" checked="checked" />Opinião</label>

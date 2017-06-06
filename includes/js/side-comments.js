@@ -699,7 +699,7 @@ require.register("side-comments/js/section.js", function (exports, require, modu
             this.$el.find('.add-comment[data-comment="' + commentID + '"]').addClass('hide');
             this.$el.find('.add-reply[data-comment="' + commentID + '"]').addClass('hide');
             this.$el.find('.comment-form[data-comment="' + commentID + '"]').addClass('active');
-            jQuery(".comment-form-attachment").detach().appendTo('#comment-box-entry-attachment-' + commentID);
+            jQuery(".comment-form-attachment").detach().appendTo(this.$el.find('.comment-box-entry-attachment-' + commentID));
             jQuery(".delibera_before_fields").hide();
         }
 
@@ -892,6 +892,8 @@ require.register("side-comments/js/section.js", function (exports, require, modu
         } else {
             this.$el.addClass('active');
             this.$el.find('.side-comment').addClass('active');
+            jQuery(".comment-form-attachment").detach().appendTo(this.$el.find('.comment-box-entry-attachment-'));
+            jQuery(".delibera_before_fields").hide();
 
             if (this.comments.length === 0 && this.currentUser) {
                 this.focusCommentBox("0", "");

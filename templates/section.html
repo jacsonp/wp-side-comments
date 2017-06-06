@@ -34,7 +34,7 @@
 
         <div class="comment-form" data-parent="0" data-comment="">
             <p class="author-name"> <%= currentUser.name %> </p>
-            <div id="comment-box-entry-attachment-" class="comment-box-entry-attachment"></div>
+            <div class="comment-box-entry-attachment comment-box-entry-attachment-"></div>
 			<% if (commentsData.pautas_suportam_encaminhamento == 1) { %>
 				<% if (commentsData.situacao != 'relatoria') { %>
 					<label class="action-link opiniao delibera-encaminha-label" ><input type="radio" name="delibera_encaminha-<%= comment.commentID %>" value="N" checked="checked" /><%= commentsData.texts['opinion'] %></label>
