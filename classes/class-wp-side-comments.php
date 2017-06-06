@@ -151,7 +151,7 @@ class CTLT_WP_Side_Comments {
 		
 		$situacao = \delibera_get_situacao();
 		
-		if($situacao->slug != 'discussao') return false;
+		if( ! in_array($situacao->slug, array('discussao', 'relatoria', 'comresolucao')) ) return false;
 
 		return true;
 	}
@@ -1270,7 +1270,41 @@ class CTLT_WP_Side_Comments {
 				<p class="fontsize-sm">Texto de <a href="#" class="alert-link">Erro</a></p>
 			</div>
 		</div><?php	
-	} 
+	}
+	
+	/**
+	 * Check if post have at last a side comment section
+	 * @param mixed $postID //postID, post object or 0/false for the loop post
+	 * @return boolean
+	 */
+	public static function hasSideCommentSection($postID = 0)
+	{
+		$post = false;
+		if(is_object($postID))
+		{
+			$post = $postID;
+			$postID = $post->ID;
+		}
+		
+		if($postID == 0) $postID = get_the_ID();
+		if(! $postID) return false; 
+		
+		if(! $post) $post = get_post( $postID );
+		
+		if ( ! $post ) {
+			return false;
+		}
+		
+		$dom = new simple_html_dom( $post->post_content );
+		
+		$elements = $dom->find( 'p' );
+		
+		foreach ( $elements as $key => $element )
+		{
+			if($element->hasAttribute( 'data-section-id' )) return true;
+		}
+		return false;
+	}
 	
 }/* class CTLT_WP_Side_Comments */
 
