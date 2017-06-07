@@ -1306,6 +1306,112 @@ class CTLT_WP_Side_Comments {
 		return false;
 	}
 	
+	public static function getPostSectionsList($postID = 0)
+	{
+		$post = false;
+		if(is_object($postID))
+		{
+			$post = $postID;
+			$postID = $post->ID;
+		}
+		
+		if($postID == 0) $postID = get_the_ID();
+		if(! $postID) return false;
+		
+		if(! $post) $post = get_post( $postID );
+		
+		if ( ! $post ) {
+			return false;
+		}
+		
+		$dom = new simple_html_dom( $post->post_content );
+		
+		$elements = $dom->find( 'p' );
+		
+		$postSections = array();
+		
+		foreach ( $elements as $key => $element ) {
+			$sectionID = $element->hasAttribute( 'data-section-id' ) ? $element->getAttribute( 'data-section-id' ) : false;
+			if ( $sectionID ) {
+				$postSections[ $sectionID ] = $element->plaintext;
+			}
+			
+		}
+		return $postSections;
+	}
+	
+	public static function getCommentsPerSection($postID = 0)
+	{
+		if(is_object($postID))
+		{
+			$postID = $post->ID;
+		}
+		
+		if($postID == 0) $postID = get_the_ID();
+		if(! $postID) return array();
+		
+		// Build our args for get_comments
+		$getCommentArgs = array(
+			'post_id' => $postID,
+			'status'  => 'approve',
+			'order'   => 'ASC'
+		);
+		
+		$comments = get_comments( $getCommentArgs );
+		
+		// Do we have any?
+		if ( ! $comments || ! is_array( $comments ) || empty( $comments ) ) {
+			return array();
+		}
+		
+		// Start fresh
+		$sideCommentData = array();
+		global $comment;
+		
+		foreach ( $comments as $key => $commentData )
+		{
+			$comment = $commentData;
+			$thisCommentID = $commentData->comment_ID;
+			
+			$section = get_comment_meta( $thisCommentID, 'side-comment-section', true );
+			
+			$sideComment = false;
+			if ( $section && ! empty( $section ) ) {
+				$sideComment = $section;
+			}
+			
+			if ( ! $sideComment ) {
+				continue;
+			}
+			
+			if ( ! isset( $sideCommentData[ $section ] ) ) {
+				$sideCommentData[ $section ] = array();
+			}
+			
+			$sideCommentData[ $section ][] = $commentData;
+			
+		}
+		
+		
+		$commentsForThisPost = $sideCommentData;
+		
+		$detailsAboutCurrentUser = get_current_user();
+		
+		// start fresh
+		$commentData = array();
+		
+		// Add our data if we have it
+		if ( $commentsForThisPost && is_array( $commentsForThisPost ) ) {
+			$commentData['comments'] = $commentsForThisPost;
+		}
+		
+		$commentData['user'] = $detailsAboutCurrentUser;
+		$commentData['postID'] = $postID;
+		
+		// Ship it.
+		return $commentData;
+	}
+	
 }/* class CTLT_WP_Side_Comments */
 
 //Plugin initializer
