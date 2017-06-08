@@ -1339,9 +1339,16 @@ class CTLT_WP_Side_Comments {
 		}
 		return $postSections;
 	}
-	
-	public static function getCommentsPerSection($postID = 0)
-	{
+
+	/**
+	 * @param integer $postID ID of the post
+	 * @param string $output Optional. Any of ARRAY_A | OBJECT constants.
+	 *                       return an array of rows indexed from 0 by SQL result row number.
+	 *                       Each row is an associative array (column => value, ...) or an object. ( ->column = value ), respectively.
+	 * @return array List of comments                  
+	 */
+	public static function getCommentsPerSection($postID = 0, $output = OBJECT)
+	{ 
 		if(is_object($postID))
 		{
 			$postID = $post->ID;
@@ -1388,7 +1395,14 @@ class CTLT_WP_Side_Comments {
 				$sideCommentData[ $section ] = array();
 			}
 			
-			$sideCommentData[ $section ][] = $commentData;
+			if($output == OBJECT)
+			{
+				$sideCommentData[ $section ][] = $commentData;
+			}
+			else
+			{
+				$sideCommentData[ $section ][] = (array) $commentData;
+			}
 			
 		}
 		
