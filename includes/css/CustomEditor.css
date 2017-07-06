@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+/* Add this code in style.css */
+.dropcap {
+    float: left;
+    font-size: 80px;
+    padding-right: 7px;
+    line-height: 72px;
+}

@@ -27,8 +27,8 @@ class Texto_Em_Debate_Post_Type {
 		add_action( 'the_content', array( $this, 'wp_side_comments_parse_headers' ) );
 		add_filter( 'texto_em_debate_menu_items', array( $this, 'wp_side_comments_create_menu_items' ) );
 		add_filter( 'tiny_mce_before_init', array( $this, 'editor_visual_novas_cores' ) );
-		add_filter( 'tiny_mce_before_init', array( $this, 'editor_visual_custom_styles' ) );
-		add_filter( 'mce_buttons_2', array( $this, 'editor_visual_custom_styles_buttons' ) );
+		//add_filter( 'tiny_mce_before_init', array( $this, 'editor_visual_custom_styles' ) );
+		//add_filter( 'mce_buttons_2', array( $this, 'editor_visual_custom_styles_buttons' ) );
 		add_filter( 'mce_css', array( $this, 'editor_visual_css' ) );
 
 	}
