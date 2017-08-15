@@ -80,6 +80,23 @@
             		tinyMCE.activeEditor.dom.setAttrib(tinyMCE.activeEditor.dom.select('p'), 'data-section-id', '0');
             	}
             });
+            
+        	jQuery(document).on('change','#discussion_type', function()
+        	{
+        		ed.dom.removeClass(ed.dom.select('p'), 'commentable-section');
+        		ed.dom.setAttrib(ed.dom.select('p'), 'data-section-id', null);
+        		
+        		if(this.value == 'side')
+        		{
+        			ed.dom.addClass(ed.dom.select('p'), 'commentable-section');
+        			ed.dom.setAttrib(ed.dom.select('p'), 'data-section-id', '0');
+            		jQuery(".label_delibera_show_default_comment_form").show();
+        		}
+        		else
+        		{
+        			jQuery(".label_delibera_show_default_comment_form").hide();
+        		}
+        	});
         },
  
         /**
