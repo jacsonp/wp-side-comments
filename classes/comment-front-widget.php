@@ -107,7 +107,7 @@ class CommentWidgetFront extends \WP_Widget {
 		$args   = array(
 			'post_type' => array( 'pauta' ),
 		);
-		$result = new WP_Query( $args );
+		$result = new \WP_Query( $args );
 
 		$select = array();
 		foreach ( $result->posts as $post ) {
